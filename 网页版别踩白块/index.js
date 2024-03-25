@@ -70,11 +70,17 @@ function startGame() {
         container.style.top = `${top + 1}px`
         if(top == 0) {
             if(lastrow.querySelector('.black')) {
+                container.innerHTML = ''
+                score = 0
+                score_area.innerHTML = 0
+                cells = []
+                rows = []
                 alert('你失败了')
                 timers.forEach(timer => {
                     clearInterval(timer)
                     return
                 })
+                timers = []
             }
             container.style.top = '-102px'
             createSinglerow()
@@ -89,11 +95,19 @@ document.addEventListener('click', (e) => {
             score ++
             score_area.innerHTML = score
             e.target.classList.remove('black')
+            let row = e.target.parentNode
+            clearInterval(timers[rows.findIndex(item => item == row)])
         } else {
+            container.innerHTML = ''
+            score = 0
+            score_area.innerHTML = 0
+            cells = []
+            rows = []
             timers.forEach(timer => {
                 clearInterval(timer)
-                return
+                //return
             })
+            timers = []
             alert('你失败了')
         }
     }
